@@ -16,12 +16,30 @@ function getRandomIntInclusive(min, max) {
 
 function win(playerSelection, computerSelection) {
     playerScore++;
-    return "You win! " + playerSelection + " beats " + computerSelection + "!";
+    displayScore();
+    gameStatus.textContent = "Nice! " + playerSelection + " beats " + computerSelection + "!";
 }
 
 function lose(playerSelection, computerSelection) {
     computerScore++;
-    return "You lose! " + computerSelection + " beats " + playerSelection + "!";
+    displayScore()
+    gameStatus.textContent = "Damn. " + computerSelection + " beats " + playerSelection + "!";
+}
+
+function tie() {
+    gameStatus.textContent = "Tie! Try again."
+}
+
+function displayScore() {
+
+    if (playerScore >= 5) {
+        scoreBoard.textContent = "You win!";
+    } else if (computerScore >= 5) {
+        scoreBoard.textContent = "You lose! Try again."
+    } else {
+    scoreBoard.textContent = ("Player: " + playerScore + '\n' +
+    "Computer: " + computerScore);
+    }
 }
 
 // function getInput
@@ -45,7 +63,20 @@ function getInput() {
     }
 }
 
+const buttons = document.querySelectorAll('button');
 
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log(button.id);
+        playRound(button.id, computerPlay());
+
+    });
+});
+
+const scoreBoard = document.querySelector('.results');
+scoreBoard.textContent = "Player: \n Computer: "
+
+const gameStatus = document.querySelector('.status');
 
 // computerPlay
 // randomly chooses between 3 options; rock, paper, or scissors
@@ -69,41 +100,14 @@ function computerPlay() {
     else if (computerSelectionNumber === 3) {
         computerSelection = "scissors";
     }
-
+    console.log("Computer chose " + computerSelection);
     return computerSelection;
 }
-
-
-
-// playRound
-// plays a single round of rps
-// two parameters, playerSelection, computerSelection
-
-// convert playerSelection and computer selection into lowercase (maybe do this at the input step actually)
-// compare playerSelection string to the computerSelection string
-
-// if playerselection === computerSelection
-    // return string "Tie! Try again!"
-// else if playerSelection === "rock"
-    // if computer selection is "paper"
-        // return string "You lose! Paper beats rock"
-    // if computer selection is "scissors"
-        // return string "You win! Rock beats paper"
-// else if playerSelectino === "paper"
-    // if computer selection is "rock"
-        // return string "You win! Paper beats rock"
-    // if computer selection is "scissors"
-        // return string "You lose! Scissors beat paper"
-// else if playerSelection === "scissors"
-    // if computer selection is "rock"
-        // return string "You lose! Rock beats scissors"
-    // if computer selction is "paper"
-        // return string "You win! Scissors beat paper!"
 
 function playRound(playerSelection, computerSelection) {
 
     if (playerSelection === computerSelection) {
-        return "Tie! Try again!";
+        return tie();
     }
     else if (playerSelection === "rock") {
         if (computerSelection === "paper") {
@@ -131,31 +135,3 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// function game()
-// play 5 rounds and then declare whether the player is the winner or the loser at the end
-
-// for every loop until i > 5 (starting at 0)
-    // playRound(getInput, computerPlay())
-    // 
-
-function game() {
-
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(getInput(), computerPlay()));
-    }
-    console.log("Player: " + playerScore);
-    console.log("Computer: " + computerScore);
-
-    if (playerScore > computerScore) {
-        console.log("You win!");
-    }
-    else if (playerScore < computerScore) {
-        console.log("You lose.");
-    }
-    else if (playerScore === computerScore) {
-        console.log("It was a tie.");
-    }
-
-}
-
-game();

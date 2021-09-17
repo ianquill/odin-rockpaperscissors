@@ -1,0 +1,29 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: lightcyan;
+}
+
+button {
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.results {
+    font-size: 32px;
+    font-weight: bolder;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px black solid;
+    padding: 100px;
+}
+
+.status {
+    padding: 20px;
+}
